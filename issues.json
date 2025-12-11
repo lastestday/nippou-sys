@@ -1,0 +1,117 @@
+[
+  {
+    "title": "[Setup] プロジェクト基盤セットアップ",
+    "body": "## 概要\nプロジェクトの基本的な環境構築とディレクトリ構造の作成\n\n## タスク\n- [x] package.json設定\n- [x] TypeScript設定\n- [x] ESLint/Prettier設定\n- [x] Vitest設定\n- [ ] Next.js初期セットアップ\n- [ ] Tailwind CSS設定\n- [ ] shadcn/ui初期設定\n\n## 受け入れ基準\n- Next.jsアプリケーションが起動できる\n- Lintとフォーマットが動作する\n- テストが実行できる\n\n## 参照\n- CLAUDE.md - Development Setup",
+    "labels": ["setup", "priority:high"]
+  },
+  {
+    "title": "[Database] Prismaスキーマ定義",
+    "body": "## 概要\nER図に基づいたPrismaスキーマの作成\n\n## 詳細\n以下のテーブルをPrismaスキーマとして定義:\n- EMPLOYEE (社員マスタ)\n- CUSTOMER (顧客マスタ)\n- DAILY_REPORT (日報)\n- VISIT_RECORD (訪問記録)\n- REPORT_COMMENT (日報コメント)\n\n## タスク\n- [ ] schema.prismaファイル作成\n- [ ] 各モデル定義\n- [ ] リレーション設定\n- [ ] インデックス設定\n- [ ] マイグレーションファイル生成\n- [ ] シードデータ作成\n\n## 受け入れ基準\n- `npx prisma generate` が成功する\n- `npx prisma migrate dev` が成功する\n- ER図との整合性が取れている\n- ユニーク制約、外部キー制約が正しく設定されている\n\n## 参照\n- CLAUDE.md - ER Diagram\n- API_SPECIFICATION.md",
+    "labels": ["database", "priority:high"]
+  },
+  {
+    "title": "[Backend] 認証API実装",
+    "body": "## 概要\nJWT認証機能の実装\n\n## 詳細\n以下のエンドポイントを実装:\n- POST /api/auth/login - ログイン\n- POST /api/auth/logout - ログアウト\n- POST /api/auth/refresh - トークン更新\n\n## タスク\n- [ ] NextAuth.js設定\n- [ ] ログインAPI実装\n- [ ] ログアウトAPI実装\n- [ ] トークンリフレッシュAPI実装\n- [ ] パスワードハッシュ化(bcrypt)\n- [ ] JWTトークン生成・検証\n- [ ] ミドルウェア実装(認証チェック)\n- [ ] 単体テスト作成\n\n## 受け入れ基準\n- ログインが成功しJWTトークンが返される\n- 不正な認証情報で401エラーが返される\n- トークンでAPI認証ができる\n- 単体テストが通る\n\n## 参照\n- API_SPECIFICATION.md - 2. 認証API\n- TEST_SPECIFICATION.md - 2.1.1 認証機能",
+    "labels": ["backend", "api", "auth", "priority:high"]
+  },
+  {
+    "title": "[Backend] 日報API実装",
+    "body": "## 概要\n日報のCRUD操作APIを実装\n\n## 詳細\n以下のエンドポイントを実装:\n- GET /api/daily-reports - 一覧取得\n- GET /api/daily-reports/[id] - 詳細取得\n- POST /api/daily-reports - 作成\n- PUT /api/daily-reports/[id] - 更新\n- DELETE /api/daily-reports/[id] - 削除\n- PATCH /api/daily-reports/[id]/status - ステータス更新\n\n## タスク\n- [ ] 日報一覧取得API実装\n- [ ] 日報詳細取得API実装\n- [ ] 日報作成API実装\n- [ ] 日報更新API実装\n- [ ] 日報削除API実装\n- [ ] ステータス更新API実装\n- [ ] Zodバリデーション実装\n- [ ] 権限チェック実装\n- [ ] 単体テスト作成\n- [ ] 結合テスト作成\n\n## 受け入れ基準\n- 全エンドポイントが正常に動作する\n- バリデーションエラーが適切に返される\n- 権限制御が正しく動作する\n- テストカバレッジ80%以上\n\n## 参照\n- API_SPECIFICATION.md - 3. 日報API\n- TEST_SPECIFICATION.md - 2.1.2 日報機能",
+    "labels": ["backend", "api", "priority:high"]
+  },
+  {
+    "title": "[Backend] 訪問記録API実装",
+    "body": "## 概要\n訪問記録の管理機能実装（日報APIの一部として）\n\n## 詳細\n訪問記録は日報APIに含まれるが、以下の機能を実装:\n- 訪問記録の複数登録\n- 訪問記録の順序管理(display_order)\n- 訪問記録の更新・削除\n\n## タスク\n- [ ] 訪問記録の配列処理実装\n- [ ] display_orderの自動採番\n- [ ] 訪問記録のバリデーション\n- [ ] 顧客マスタとの整合性チェック\n- [ ] 単体テスト作成\n\n## 受け入れ基準\n- 1つの日報に複数の訪問記録を登録できる\n- display_orderで順序が管理される\n- 顧客マスタに存在しない顧客IDでエラーになる\n- テストが通る\n\n## 参照\n- API_SPECIFICATION.md - 3. 日報API\n- TEST_SPECIFICATION.md - 2.1.3 訪問記録機能",
+    "labels": ["backend", "api", "priority:medium"]
+  },
+  {
+    "title": "[Backend] コメントAPI実装",
+    "body": "## 概要\n日報へのコメント機能実装\n\n## 詳細\n以下のエンドポイントを実装:\n- POST /api/daily-reports/[id]/comments - コメント追加\n- GET /api/daily-reports/[id]/comments - コメント一覧取得\n- DELETE /api/daily-reports/[id]/comments/[commentId] - コメント削除\n\n## タスク\n- [ ] コメント追加API実装\n- [ ] コメント一覧取得API実装\n- [ ] コメント削除API実装\n- [ ] comment_type別フィルタリング\n- [ ] 上長権限チェック\n- [ ] 単体テスト作成\n\n## 受け入れ基準\n- 上長のみがコメントを追加できる\n- comment_typeで種別を指定できる\n- 自分のコメントのみ削除できる\n- テストが通る\n\n## 参照\n- API_SPECIFICATION.md - 4. コメントAPI\n- TEST_SPECIFICATION.md - 2.1.4 コメント機能",
+    "labels": ["backend", "api", "priority:medium"]
+  },
+  {
+    "title": "[Backend] 顧客マスタAPI実装",
+    "body": "## 概要\n顧客マスタのCRUD操作API実装\n\n## 詳細\n以下のエンドポイントを実装:\n- GET /api/customers - 一覧取得\n- GET /api/customers/[id] - 詳細取得\n- POST /api/customers - 登録\n- PUT /api/customers/[id] - 更新\n- DELETE /api/customers/[id] - 削除\n\n## タスク\n- [ ] 顧客一覧取得API実装\n- [ ] 顧客詳細取得API実装\n- [ ] 顧客登録API実装\n- [ ] 顧客更新API実装\n- [ ] 顧客削除API実装\n- [ ] 検索・絞り込み機能実装\n- [ ] ページネーション実装\n- [ ] 管理者権限チェック\n- [ ] 単体テスト作成\n\n## 受け入れ基準\n- 全エンドポイントが正常に動作する\n- 訪問記録がある顧客は削除できない\n- 管理者のみが登録・更新・削除できる\n- テストが通る\n\n## 参照\n- API_SPECIFICATION.md - 5. 顧客マスタAPI\n- TEST_SPECIFICATION.md - 2.1.5 顧客マスタ機能",
+    "labels": ["backend", "api", "priority:medium"]
+  },
+  {
+    "title": "[Backend] 社員マスタAPI実装",
+    "body": "## 概要\n社員マスタのCRUD操作API実装\n\n## 詳細\n以下のエンドポイントを実装:\n- GET /api/employees - 一覧取得\n- GET /api/employees/[id] - 詳細取得\n- POST /api/employees - 登録\n- PUT /api/employees/[id] - 更新\n- DELETE /api/employees/[id] - 削除\n- GET /api/employees/[id]/subordinates - 部下一覧取得\n\n## タスク\n- [ ] 社員一覧取得API実装\n- [ ] 社員詳細取得API実装\n- [ ] 社員登録API実装\n- [ ] 社員更新API実装\n- [ ] 社員削除API実装\n- [ ] 部下一覧取得API実装\n- [ ] 循環参照チェック実装\n- [ ] パスワード変更処理実装\n- [ ] 管理者権限チェック\n- [ ] 単体テスト作成\n\n## 受け入れ基準\n- 全エンドポイントが正常に動作する\n- 循環参照が防止される\n- 日報がある社員は削除できない\n- 管理者のみが操作できる\n- テストが通る\n\n## 参照\n- API_SPECIFICATION.md - 6. 社員マスタAPI\n- TEST_SPECIFICATION.md - 2.1.6 社員マスタ機能",
+    "labels": ["backend", "api", "priority:medium"]
+  },
+  {
+    "title": "[Backend] ダッシュボードAPI実装",
+    "body": "## 概要\nダッシュボード表示用データ取得API実装\n\n## 詳細\nGET /api/dashboard エンドポイントを実装\n- 営業担当者向けデータ\n- 上長向けデータ\n\n## タスク\n- [ ] ダッシュボードAPI実装\n- [ ] 本日の日報ステータス取得\n- [ ] 活動サマリー取得\n- [ ] 未読コメント取得\n- [ ] 部下の日報状況取得(上長)\n- [ ] ロール別データ分岐\n- [ ] 単体テスト作成\n\n## 受け入れ基準\n- 営業担当者と上長で異なるデータが返される\n- パフォーマンスが良好\n- テストが通る\n\n## 参照\n- API_SPECIFICATION.md - 7. ダッシュボードAPI\n- SCREEN_DESIGN.md - S02: ダッシュボード",
+    "labels": ["backend", "api", "priority:low"]
+  },
+  {
+    "title": "[Frontend] 共通レイアウトコンポーネント実装",
+    "body": "## 概要\n全画面共通のレイアウトコンポーネント実装\n\n## 詳細\n- ヘッダー\n- サイドメニュー/ナビゲーション\n- フッター\n- パンくずリスト\n\n## タスク\n- [ ] Headerコンポーネント実装\n- [ ] Navigationコンポーネント実装\n- [ ] Breadcrumbコンポーネント実装\n- [ ] Layoutコンポーネント実装\n- [ ] レスポンシブ対応\n- [ ] コンポーネントテスト作成\n\n## 受け入れ基準\n- 全画面で共通レイアウトが適用される\n- モバイル・タブレット対応\n- テストが通る\n\n## 参照\n- SCREEN_DESIGN.md - 3. 共通仕様",
+    "labels": ["frontend", "ui", "priority:high"]
+  },
+  {
+    "title": "[Frontend] ログイン画面実装",
+    "body": "## 概要\nログイン画面(S01)の実装\n\n## 詳細\n- メールアドレス入力\n- パスワード入力\n- ログインボタン\n- エラー表示\n\n## タスク\n- [ ] ログインフォーム実装\n- [ ] バリデーション実装\n- [ ] API連携\n- [ ] エラーハンドリング\n- [ ] ローディング表示\n- [ ] コンポーネントテスト作成\n- [ ] E2Eテスト作成\n\n## 受け入れ基準\n- 正しい認証情報でログインできる\n- 不正な認証情報でエラーが表示される\n- レスポンシブ対応\n- テストが通る\n\n## 参照\n- SCREEN_DESIGN.md - S01: ログイン画面\n- API_SPECIFICATION.md - 2.1 ログイン",
+    "labels": ["frontend", "ui", "auth", "priority:high"]
+  },
+  {
+    "title": "[Frontend] ダッシュボード画面実装",
+    "body": "## 概要\nダッシュボード画面(S02)の実装\n\n## 詳細\n- 本日の日報ステータス表示\n- 活動サマリー表示\n- 通知エリア\n- クイックメニュー\n- ロール別表示切り替え\n\n## タスク\n- [ ] ダッシュボードページ実装\n- [ ] 本日の日報カード実装\n- [ ] 活動サマリーカード実装\n- [ ] 通知エリア実装\n- [ ] クイックメニュー実装\n- [ ] 営業担当者向け表示\n- [ ] 上長向け表示\n- [ ] API連携\n- [ ] コンポーネントテスト作成\n- [ ] E2Eテスト作成\n\n## 受け入れ基準\n- 営業担当者と上長で表示が切り替わる\n- 各種データが正しく表示される\n- レスポンシブ対応\n- テストが通る\n\n## 参照\n- SCREEN_DESIGN.md - S02: ダッシュボード\n- API_SPECIFICATION.md - 7.1 ダッシュボード情報取得",
+    "labels": ["frontend", "ui", "priority:high"]
+  },
+  {
+    "title": "[Frontend] 日報一覧画面実装",
+    "body": "## 概要\n日報一覧画面(S03)の実装\n\n## 詳細\n- 検索フォーム\n- 日報一覧テーブル\n- ページネーション\n- ソート機能\n- フィルタリング機能\n\n## タスク\n- [ ] 日報一覧ページ実装\n- [ ] 検索フォーム実装\n- [ ] 日報テーブル実装\n- [ ] ページネーション実装\n- [ ] ソート機能実装\n- [ ] フィルタリング実装\n- [ ] API連携\n- [ ] コンポーネントテスト作成\n- [ ] E2Eテスト作成\n\n## 受け入れ基準\n- 日報一覧が表示される\n- 検索・絞り込みが動作する\n- ページネーション・ソートが動作する\n- レスポンシブ対応\n- テストが通る\n\n## 参照\n- SCREEN_DESIGN.md - S03: 日報一覧画面\n- API_SPECIFICATION.md - 3.1 日報一覧取得",
+    "labels": ["frontend", "ui", "priority:high"]
+  },
+  {
+    "title": "[Frontend] 日報作成・編集画面実装",
+    "body": "## 概要\n日報作成・編集画面(S04)の実装\n\n## 詳細\n- 基本情報表示\n- 訪問記録入力(複数行)\n- Problem入力\n- Plan入力\n- 下書き保存・提出ボタン\n\n## タスク\n- [ ] 日報フォームページ実装\n- [ ] 基本情報エリア実装\n- [ ] 訪問記録エリア実装(動的行追加・削除)\n- [ ] 訪問記録ドラッグ&ドロップ並び替え\n- [ ] Problem/Planエリア実装\n- [ ] 顧客ドロップダウン実装\n- [ ] バリデーション実装\n- [ ] API連携(作成・更新)\n- [ ] コンポーネントテスト作成\n- [ ] E2Eテスト作成\n\n## 受け入れ基準\n- 日報の新規作成ができる\n- 日報の編集ができる\n- 訪問記録を複数追加できる\n- バリデーションが動作する\n- レスポンシブ対応\n- テストが通る\n\n## 参照\n- SCREEN_DESIGN.md - S04: 日報作成・編集画面\n- API_SPECIFICATION.md - 3.3 日報作成, 3.4 日報更新",
+    "labels": ["frontend", "ui", "priority:high"]
+  },
+  {
+    "title": "[Frontend] 日報詳細画面実装",
+    "body": "## 概要\n日報詳細画面(S05)の実装\n\n## 詳細\n- 日報情報表示\n- 訪問記録表示\n- Problem/Plan表示\n- コメント一覧表示\n- コメント追加フォーム(上長のみ)\n- 確認済みボタン(上長のみ)\n\n## タスク\n- [ ] 日報詳細ページ実装\n- [ ] 日報情報表示エリア実装\n- [ ] 訪問記録表示エリア実装\n- [ ] Problem/Planコメント表示実装\n- [ ] コメント追加フォーム実装\n- [ ] 権限別表示制御\n- [ ] API連携\n- [ ] コンポーネントテスト作成\n- [ ] E2Eテスト作成\n\n## 受け入れ基準\n- 日報詳細が表示される\n- 上長のみコメント追加できる\n- ステータス更新ができる\n- レスポンシブ対応\n- テストが通る\n\n## 参照\n- SCREEN_DESIGN.md - S05: 日報詳細画面\n- API_SPECIFICATION.md - 3.2 日報詳細取得, 4.1 コメント追加",
+    "labels": ["frontend", "ui", "priority:medium"]
+  },
+  {
+    "title": "[Frontend] 顧客マスタ画面実装",
+    "body": "## 概要\n顧客マスタ一覧・登録・編集画面(S06, S07)の実装\n\n## 詳細\n- 顧客一覧(S06)\n- 顧客登録・編集(S07)\n\n## タスク\n- [ ] 顧客一覧ページ実装\n- [ ] 検索フォーム実装\n- [ ] 顧客テーブル実装\n- [ ] 顧客登録・編集ページ実装\n- [ ] 顧客フォーム実装\n- [ ] バリデーション実装\n- [ ] 管理者権限チェック\n- [ ] API連携\n- [ ] コンポーネントテスト作成\n- [ ] E2Eテスト作成\n\n## 受け入れ基準\n- 顧客一覧が表示される\n- 顧客の登録・編集・削除ができる\n- 管理者のみ操作できる\n- レスポンシブ対応\n- テストが通る\n\n## 参照\n- SCREEN_DESIGN.md - S06, S07: 顧客マスタ画面\n- API_SPECIFICATION.md - 5. 顧客マスタAPI",
+    "labels": ["frontend", "ui", "priority:medium"]
+  },
+  {
+    "title": "[Frontend] 社員マスタ画面実装",
+    "body": "## 概要\n社員マスタ一覧・登録・編集画面(S08, S09)の実装\n\n## 詳細\n- 社員一覧(S08)\n- 社員登録・編集(S09)\n\n## タスク\n- [ ] 社員一覧ページ実装\n- [ ] 検索フォーム実装\n- [ ] 社員テーブル実装\n- [ ] 社員登録・編集ページ実装\n- [ ] 社員フォーム実装\n- [ ] 上長選択ドロップダウン実装\n- [ ] バリデーション実装\n- [ ] 管理者権限チェック\n- [ ] API連携\n- [ ] コンポーネントテスト作成\n- [ ] E2Eテスト作成\n\n## 受け入れ基準\n- 社員一覧が表示される\n- 社員の登録・編集・削除ができる\n- 管理者のみ操作できる\n- レスポンシブ対応\n- テストが通る\n\n## 参照\n- SCREEN_DESIGN.md - S08, S09: 社員マスタ画面\n- API_SPECIFICATION.md - 6. 社員マスタAPI",
+    "labels": ["frontend", "ui", "priority:low"]
+  },
+  {
+    "title": "[UI] shadcn/ui コンポーネント導入",
+    "body": "## 概要\nshadcn/uiコンポーネントライブラリのセットアップと必要なコンポーネントの導入\n\n## タスク\n- [ ] shadcn/ui初期設定\n- [ ] Button コンポーネント導入\n- [ ] Input コンポーネント導入\n- [ ] Form コンポーネント導入\n- [ ] Table コンポーネント導入\n- [ ] Dialog コンポーネント導入\n- [ ] Select コンポーネント導入\n- [ ] Card コンポーネント導入\n- [ ] Badge コンポーネント導入\n- [ ] Alert コンポーネント導入\n- [ ] Pagination コンポーネント導入\n- [ ] Dropdown Menu コンポーネント導入\n\n## 受け入れ基準\n- 各コンポーネントが正しくインポートできる\n- テーマ設定が適用される\n- Tailwind CSSと連携している\n\n## 参照\n- https://ui.shadcn.com/",
+    "labels": ["frontend", "ui", "setup", "priority:high"]
+  },
+  {
+    "title": "[Security] セキュリティ対策実装",
+    "body": "## 概要\nセキュリティ脆弱性対策の実装\n\n## 詳細\n- SQLインジェクション対策\n- XSS対策\n- CSRF対策\n- 認証・認可の強化\n\n## タスク\n- [ ] Prismaプリペアドステートメント確認\n- [ ] 入力値サニタイジング実装\n- [ ] CSRFトークン実装\n- [ ] HTTPSリダイレクト設定\n- [ ] セキュリティヘッダー設定\n- [ ] レート制限実装\n- [ ] セキュリティテスト実施\n\n## 受け入れ基準\n- セキュリティテストが全て通る\n- OWASP Top 10の脆弱性がない\n- ペネトレーションテスト合格\n\n## 参照\n- TEST_SPECIFICATION.md - 6. セキュリティテスト仕様",
+    "labels": ["security", "priority:high"]
+  },
+  {
+    "title": "[Testing] E2Eテスト環境構築",
+    "body": "## 概要\nPlaywright/Cypressを使用したE2Eテスト環境の構築\n\n## タスク\n- [ ] Playwright or Cypress導入\n- [ ] テスト環境設定\n- [ ] ページオブジェクトモデル作成\n- [ ] 主要シナリオテスト作成\n- [ ] CI/CD統合\n\n## 受け入れ基準\n- E2Eテストが実行できる\n- CIで自動実行される\n- テストカバレッジが確保される\n\n## 参照\n- TEST_SPECIFICATION.md - 4. E2Eテスト仕様",
+    "labels": ["testing", "priority:medium"]
+  },
+  {
+    "title": "[Docs] OpenAPI仕様書生成",
+    "body": "## 概要\nAPI仕様書からOpenAPI(Swagger)仕様書を生成\n\n## タスク\n- [ ] OpenAPI仕様ファイル作成\n- [ ] Zodスキーマから自動生成設定\n- [ ] Swagger UI設定\n- [ ] API仕様書との整合性確認\n\n## 受け入れ基準\n- Swagger UIでAPI仕様が閲覧できる\n- 全エンドポイントが文書化されている\n- API_SPECIFICATION.mdと整合性がある\n\n## 参照\n- API_SPECIFICATION.md",
+    "labels": ["documentation", "priority:low"]
+  },
+  {
+    "title": "[DevOps] CI/CDパイプライン構築",
+    "body": "## 概要\nGitHub Actionsを使用したCI/CDパイプラインの構築\n\n## タスク\n- [ ] Lint・Format チェックワークフロー\n- [ ] テスト実行ワークフロー\n- [ ] ビルドワークフロー\n- [ ] デプロイワークフロー(Google Cloud Run)\n- [ ] カバレッジレポート生成\n- [ ] プルリクエスト自動チェック\n\n## 受け入れ基準\n- PRごとに自動テストが実行される\n- mainブランチマージ時に自動デプロイされる\n- カバレッジレポートが表示される\n\n## 参照\n- CLAUDE.md - Development Setup",
+    "labels": ["devops", "ci/cd", "priority:medium"]
+  },
+  {
+    "title": "[DevOps] Google Cloud Run デプロイ設定",
+    "body": "## 概要\nGoogle Cloud Runへのデプロイ設定\n\n## タスク\n- [ ] Dockerfileの作成\n- [ ] .dockerignoreの設定\n- [ ] Cloud Run設定ファイル作成\n- [ ] 環境変数設定\n- [ ] データベース接続設定\n- [ ] デプロイスクリプト作成\n- [ ] ドメイン設定\n\n## 受け入れ基準\n- Cloud Runにデプロイできる\n- アプリケーションが正常に動作する\n- データベース接続が確立される\n\n## 参照\n- CLAUDE.md",
+    "labels": ["devops", "deployment", "priority:medium"]
+  }
+]
