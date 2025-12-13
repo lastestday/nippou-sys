@@ -3,17 +3,20 @@
 ## 1. API概要
 
 ### ベースURL
+
 ```
 https://api.example.com/api/v1
 ```
 
 ### 認証方式
+
 - JWT (JSON Web Token) を使用
 - リクエストヘッダーに `Authorization: Bearer {token}` を付与
 
 ### 共通レスポンス形式
 
 #### 成功時
+
 ```json
 {
   "success": true,
@@ -23,6 +26,7 @@ https://api.example.com/api/v1
 ```
 
 #### エラー時
+
 ```json
 {
   "success": false,
@@ -36,16 +40,16 @@ https://api.example.com/api/v1
 
 ### HTTPステータスコード
 
-| コード | 意味 | 使用場面 |
-|--------|------|----------|
-| 200 | OK | 成功 |
-| 201 | Created | リソース作成成功 |
-| 400 | Bad Request | リクエストパラメータ不正 |
-| 401 | Unauthorized | 認証エラー |
-| 403 | Forbidden | 権限不足 |
-| 404 | Not Found | リソースが見つからない |
-| 409 | Conflict | リソースの競合（重複登録など） |
-| 500 | Internal Server Error | サーバーエラー |
+| コード | 意味                  | 使用場面                       |
+| ------ | --------------------- | ------------------------------ |
+| 200    | OK                    | 成功                           |
+| 201    | Created               | リソース作成成功               |
+| 400    | Bad Request           | リクエストパラメータ不正       |
+| 401    | Unauthorized          | 認証エラー                     |
+| 403    | Forbidden             | 権限不足                       |
+| 404    | Not Found             | リソースが見つからない         |
+| 409    | Conflict              | リソースの競合（重複登録など） |
+| 500    | Internal Server Error | サーバーエラー                 |
 
 ---
 
@@ -58,6 +62,7 @@ https://api.example.com/api/v1
 **説明**: メールアドレスとパスワードでログインし、JWTトークンを取得
 
 **リクエスト**:
+
 ```json
 {
   "email": "user@example.com",
@@ -66,6 +71,7 @@ https://api.example.com/api/v1
 ```
 
 **レスポンス** (200 OK):
+
 ```json
 {
   "success": true,
@@ -86,6 +92,7 @@ https://api.example.com/api/v1
 ```
 
 **エラーレスポンス** (401 Unauthorized):
+
 ```json
 {
   "success": false,
@@ -107,6 +114,7 @@ https://api.example.com/api/v1
 **ヘッダー**: `Authorization: Bearer {token}`
 
 **レスポンス** (200 OK):
+
 ```json
 {
   "success": true,
@@ -125,6 +133,7 @@ https://api.example.com/api/v1
 **ヘッダー**: `Authorization: Bearer {token}`
 
 **レスポンス** (200 OK):
+
 ```json
 {
   "success": true,
@@ -146,22 +155,24 @@ https://api.example.com/api/v1
 
 **クエリパラメータ**:
 
-| パラメータ | 型 | 必須 | 説明 | デフォルト |
-|-----------|----|----|------|-----------|
-| date_from | date | No | 開始日 (YYYY-MM-DD) | 7日前 |
-| date_to | date | No | 終了日 (YYYY-MM-DD) | 本日 |
-| employee_id | integer | No | 営業担当者ID | ログインユーザー |
-| status | string | No | ステータス (draft/submitted/reviewed) | 全て |
-| page | integer | No | ページ番号 | 1 |
-| per_page | integer | No | 1ページあたりの件数 | 20 |
-| sort_by | string | No | ソート項目 (report_date/employee_name/status) | report_date |
-| order | string | No | ソート順 (asc/desc) | desc |
+| パラメータ  | 型      | 必須 | 説明                                          | デフォルト       |
+| ----------- | ------- | ---- | --------------------------------------------- | ---------------- |
+| date_from   | date    | No   | 開始日 (YYYY-MM-DD)                           | 7日前            |
+| date_to     | date    | No   | 終了日 (YYYY-MM-DD)                           | 本日             |
+| employee_id | integer | No   | 営業担当者ID                                  | ログインユーザー |
+| status      | string  | No   | ステータス (draft/submitted/reviewed)         | 全て             |
+| page        | integer | No   | ページ番号                                    | 1                |
+| per_page    | integer | No   | 1ページあたりの件数                           | 20               |
+| sort_by     | string  | No   | ソート項目 (report_date/employee_name/status) | report_date      |
+| order       | string  | No   | ソート順 (asc/desc)                           | desc             |
 
 **権限制御**:
+
 - 営業担当者: 自分の日報のみ取得可能
 - 上長: 自分と部下の日報を取得可能
 
 **レスポンス** (200 OK):
+
 ```json
 {
   "success": true,
@@ -198,9 +209,11 @@ https://api.example.com/api/v1
 **説明**: 指定した日報の詳細情報を取得
 
 **パスパラメータ**:
+
 - `report_id`: 日報ID
 
 **レスポンス** (200 OK):
+
 ```json
 {
   "success": true,
@@ -249,6 +262,7 @@ https://api.example.com/api/v1
 ```
 
 **エラーレスポンス** (404 Not Found):
+
 ```json
 {
   "success": false,
@@ -268,6 +282,7 @@ https://api.example.com/api/v1
 **説明**: 新しい日報を作成
 
 **リクエスト**:
+
 ```json
 {
   "report_date": "2025-12-11",
@@ -292,6 +307,7 @@ https://api.example.com/api/v1
 ```
 
 **バリデーション**:
+
 - `report_date`: 必須、日付形式
 - `problem`: status='submitted'の場合必須
 - `plan`: status='submitted'の場合必須
@@ -300,6 +316,7 @@ https://api.example.com/api/v1
 - `visits[].visit_content`: 必須
 
 **レスポンス** (201 Created):
+
 ```json
 {
   "success": true,
@@ -315,6 +332,7 @@ https://api.example.com/api/v1
 ```
 
 **エラーレスポンス** (409 Conflict):
+
 ```json
 {
   "success": false,
@@ -334,9 +352,11 @@ https://api.example.com/api/v1
 **説明**: 既存の日報を更新
 
 **パスパラメータ**:
+
 - `report_id`: 日報ID
 
 **リクエスト**:
+
 ```json
 {
   "problem": "更新後の課題内容",
@@ -361,10 +381,12 @@ https://api.example.com/api/v1
 ```
 
 **注意事項**:
+
 - `visit_id`が指定されている場合は更新、指定されていない場合は新規作成
 - リクエストに含まれない既存の訪問記録は削除される
 
 **レスポンス** (200 OK):
+
 ```json
 {
   "success": true,
@@ -377,6 +399,7 @@ https://api.example.com/api/v1
 ```
 
 **エラーレスポンス** (403 Forbidden):
+
 ```json
 {
   "success": false,
@@ -396,9 +419,11 @@ https://api.example.com/api/v1
 **説明**: 日報を削除（下書きのみ削除可能）
 
 **パスパラメータ**:
+
 - `report_id`: 日報ID
 
 **レスポンス** (200 OK):
+
 ```json
 {
   "success": true,
@@ -407,6 +432,7 @@ https://api.example.com/api/v1
 ```
 
 **エラーレスポンス** (400 Bad Request):
+
 ```json
 {
   "success": false,
@@ -426,9 +452,11 @@ https://api.example.com/api/v1
 **説明**: 日報のステータスを更新
 
 **パスパラメータ**:
+
 - `report_id`: 日報ID
 
 **リクエスト**:
+
 ```json
 {
   "status": "reviewed"
@@ -436,10 +464,12 @@ https://api.example.com/api/v1
 ```
 
 **ステータス遷移ルール**:
+
 - 営業担当者: `draft` → `submitted`
 - 上長: `submitted` → `reviewed`
 
 **レスポンス** (200 OK):
+
 ```json
 {
   "success": true,
@@ -463,9 +493,11 @@ https://api.example.com/api/v1
 **説明**: 日報にコメントを追加（上長のみ）
 
 **パスパラメータ**:
+
 - `report_id`: 日報ID
 
 **リクエスト**:
+
 ```json
 {
   "comment_type": "problem",
@@ -474,11 +506,13 @@ https://api.example.com/api/v1
 ```
 
 **comment_type**:
+
 - `problem`: Problemへのコメント
 - `plan`: Planへのコメント
 - `general`: 全体へのコメント
 
 **レスポンス** (201 Created):
+
 ```json
 {
   "success": true,
@@ -496,6 +530,7 @@ https://api.example.com/api/v1
 ```
 
 **エラーレスポンス** (403 Forbidden):
+
 ```json
 {
   "success": false,
@@ -515,12 +550,15 @@ https://api.example.com/api/v1
 **説明**: 指定した日報のコメント一覧を取得
 
 **パスパラメータ**:
+
 - `report_id`: 日報ID
 
 **クエリパラメータ**:
+
 - `comment_type` (optional): コメント種別で絞り込み
 
 **レスポンス** (200 OK):
+
 ```json
 {
   "success": true,
@@ -548,10 +586,12 @@ https://api.example.com/api/v1
 **説明**: コメントを削除（自分のコメントのみ）
 
 **パスパラメータ**:
+
 - `report_id`: 日報ID
 - `comment_id`: コメントID
 
 **レスポンス** (200 OK):
+
 ```json
 {
   "success": true,
@@ -571,16 +611,17 @@ https://api.example.com/api/v1
 
 **クエリパラメータ**:
 
-| パラメータ | 型 | 必須 | 説明 | デフォルト |
-|-----------|----|----|------|-----------|
-| customer_name | string | No | 顧客名（部分一致） | - |
-| industry | string | No | 業種 | - |
-| page | integer | No | ページ番号 | 1 |
-| per_page | integer | No | 1ページあたりの件数 | 50 |
-| sort_by | string | No | ソート項目 | customer_name |
-| order | string | No | ソート順 (asc/desc) | asc |
+| パラメータ    | 型      | 必須 | 説明                | デフォルト    |
+| ------------- | ------- | ---- | ------------------- | ------------- |
+| customer_name | string  | No   | 顧客名（部分一致）  | -             |
+| industry      | string  | No   | 業種                | -             |
+| page          | integer | No   | ページ番号          | 1             |
+| per_page      | integer | No   | 1ページあたりの件数 | 50            |
+| sort_by       | string  | No   | ソート項目          | customer_name |
+| order         | string  | No   | ソート順 (asc/desc) | asc           |
 
 **レスポンス** (200 OK):
+
 ```json
 {
   "success": true,
@@ -617,9 +658,11 @@ https://api.example.com/api/v1
 **説明**: 指定した顧客の詳細情報を取得
 
 **パスパラメータ**:
+
 - `customer_id`: 顧客ID
 
 **レスポンス** (200 OK):
+
 ```json
 {
   "success": true,
@@ -648,6 +691,7 @@ https://api.example.com/api/v1
 **説明**: 新しい顧客を登録（管理者のみ）
 
 **リクエスト**:
+
 ```json
 {
   "customer_name": "株式会社A商事",
@@ -660,11 +704,13 @@ https://api.example.com/api/v1
 ```
 
 **バリデーション**:
+
 - `customer_name`: 必須、最大100文字
 - `email`: メール形式チェック（入力時のみ）
 - `phone`: 数字とハイフンのみ（入力時のみ）
 
 **レスポンス** (201 Created):
+
 ```json
 {
   "success": true,
@@ -686,9 +732,11 @@ https://api.example.com/api/v1
 **説明**: 顧客情報を更新（管理者のみ）
 
 **パスパラメータ**:
+
 - `customer_id`: 顧客ID
 
 **リクエスト**:
+
 ```json
 {
   "customer_name": "株式会社A商事",
@@ -701,6 +749,7 @@ https://api.example.com/api/v1
 ```
 
 **レスポンス** (200 OK):
+
 ```json
 {
   "success": true,
@@ -721,9 +770,11 @@ https://api.example.com/api/v1
 **説明**: 顧客を削除（管理者のみ、訪問記録がある場合は削除不可）
 
 **パスパラメータ**:
+
 - `customer_id`: 顧客ID
 
 **レスポンス** (200 OK):
+
 ```json
 {
   "success": true,
@@ -732,6 +783,7 @@ https://api.example.com/api/v1
 ```
 
 **エラーレスポンス** (400 Bad Request):
+
 ```json
 {
   "success": false,
@@ -754,14 +806,15 @@ https://api.example.com/api/v1
 
 **クエリパラメータ**:
 
-| パラメータ | 型 | 必須 | 説明 | デフォルト |
-|-----------|----|----|------|-----------|
-| employee_name | string | No | 社員名（部分一致） | - |
-| department | string | No | 部署 | - |
-| page | integer | No | ページ番号 | 1 |
-| per_page | integer | No | 1ページあたりの件数 | 50 |
+| パラメータ    | 型      | 必須 | 説明                | デフォルト |
+| ------------- | ------- | ---- | ------------------- | ---------- |
+| employee_name | string  | No   | 社員名（部分一致）  | -          |
+| department    | string  | No   | 部署                | -          |
+| page          | integer | No   | ページ番号          | 1          |
+| per_page      | integer | No   | 1ページあたりの件数 | 50         |
 
 **レスポンス** (200 OK):
+
 ```json
 {
   "success": true,
@@ -798,9 +851,11 @@ https://api.example.com/api/v1
 **説明**: 指定した社員の詳細情報を取得
 
 **パスパラメータ**:
+
 - `employee_id`: 社員ID
 
 **レスポンス** (200 OK):
+
 ```json
 {
   "success": true,
@@ -829,6 +884,7 @@ https://api.example.com/api/v1
 **説明**: 新しい社員を登録（管理者のみ）
 
 **リクエスト**:
+
 ```json
 {
   "employee_name": "山田太郎",
@@ -841,12 +897,14 @@ https://api.example.com/api/v1
 ```
 
 **バリデーション**:
+
 - `employee_name`: 必須、最大50文字
 - `email`: 必須、メール形式、重複チェック
 - `password`: 必須、最低8文字
 - `manager_id`: 自分自身は指定不可、循環参照チェック
 
 **レスポンス** (201 Created):
+
 ```json
 {
   "success": true,
@@ -861,6 +919,7 @@ https://api.example.com/api/v1
 ```
 
 **エラーレスポンス** (409 Conflict):
+
 ```json
 {
   "success": false,
@@ -880,9 +939,11 @@ https://api.example.com/api/v1
 **説明**: 社員情報を更新（管理者のみ）
 
 **パスパラメータ**:
+
 - `employee_id`: 社員ID
 
 **リクエスト**:
+
 ```json
 {
   "employee_name": "山田太郎",
@@ -895,9 +956,11 @@ https://api.example.com/api/v1
 ```
 
 **注意事項**:
+
 - `password`は変更する場合のみ指定
 
 **レスポンス** (200 OK):
+
 ```json
 {
   "success": true,
@@ -918,9 +981,11 @@ https://api.example.com/api/v1
 **説明**: 社員を削除（管理者のみ、日報がある場合は削除不可）
 
 **パスパラメータ**:
+
 - `employee_id`: 社員ID
 
 **レスポンス** (200 OK):
+
 ```json
 {
   "success": true,
@@ -929,6 +994,7 @@ https://api.example.com/api/v1
 ```
 
 **エラーレスポンス** (400 Bad Request):
+
 ```json
 {
   "success": false,
@@ -948,9 +1014,11 @@ https://api.example.com/api/v1
 **説明**: 指定した社員の直属の部下一覧を取得
 
 **パスパラメータ**:
+
 - `employee_id`: 社員ID
 
 **レスポンス** (200 OK):
+
 ```json
 {
   "success": true,
@@ -986,6 +1054,7 @@ https://api.example.com/api/v1
 **レスポンス** (200 OK):
 
 **営業担当者向け**:
+
 ```json
 {
   "success": true,
@@ -1016,6 +1085,7 @@ https://api.example.com/api/v1
 ```
 
 **上長向け**:
+
 ```json
 {
   "success": true,
@@ -1055,15 +1125,16 @@ https://api.example.com/api/v1
 
 **クエリパラメータ**:
 
-| パラメータ | 型 | 必須 | 説明 |
-|-----------|----|----|------|
-| date_from | date | Yes | 開始日 |
-| date_to | date | Yes | 終了日 |
-| employee_id | integer | No | 営業担当者ID |
-| customer_id | integer | No | 顧客ID |
-| group_by | string | No | グループ化（date/employee/customer） |
+| パラメータ  | 型      | 必須 | 説明                                 |
+| ----------- | ------- | ---- | ------------------------------------ |
+| date_from   | date    | Yes  | 開始日                               |
+| date_to     | date    | Yes  | 終了日                               |
+| employee_id | integer | No   | 営業担当者ID                         |
+| customer_id | integer | No   | 顧客ID                               |
+| group_by    | string  | No   | グループ化（date/employee/customer） |
 
 **レスポンス** (200 OK):
+
 ```json
 {
   "success": true,
@@ -1093,13 +1164,16 @@ https://api.example.com/api/v1
 **説明**: 特定顧客への訪問履歴を取得
 
 **パスパラメータ**:
+
 - `customer_id`: 顧客ID
 
 **クエリパラメータ**:
+
 - `date_from` (optional): 開始日
 - `date_to` (optional): 終了日
 
 **レスポンス** (200 OK):
+
 ```json
 {
   "success": true,
@@ -1130,23 +1204,23 @@ https://api.example.com/api/v1
 
 ## 9. エラーコード一覧
 
-| コード | 説明 |
-|--------|------|
-| INVALID_CREDENTIALS | 認証エラー（メールアドレスまたはパスワードが不正） |
-| TOKEN_EXPIRED | トークンの有効期限切れ |
-| TOKEN_INVALID | トークンが不正 |
-| PERMISSION_DENIED | 権限不足 |
-| REPORT_NOT_FOUND | 日報が見つからない |
-| REPORT_ALREADY_EXISTS | 日報が既に存在（同日の日報重複） |
-| CANNOT_DELETE_SUBMITTED_REPORT | 提出済み日報は削除不可 |
-| CUSTOMER_NOT_FOUND | 顧客が見つからない |
-| CUSTOMER_HAS_VISITS | 顧客に訪問記録が存在（削除不可） |
-| EMPLOYEE_NOT_FOUND | 社員が見つからない |
-| EMPLOYEE_HAS_REPORTS | 社員に日報が存在（削除不可） |
-| EMAIL_ALREADY_EXISTS | メールアドレスが既に登録済み |
-| INVALID_MANAGER | 不正な上長指定（自己参照または循環参照） |
-| VALIDATION_ERROR | バリデーションエラー |
-| INTERNAL_SERVER_ERROR | サーバー内部エラー |
+| コード                         | 説明                                               |
+| ------------------------------ | -------------------------------------------------- |
+| INVALID_CREDENTIALS            | 認証エラー（メールアドレスまたはパスワードが不正） |
+| TOKEN_EXPIRED                  | トークンの有効期限切れ                             |
+| TOKEN_INVALID                  | トークンが不正                                     |
+| PERMISSION_DENIED              | 権限不足                                           |
+| REPORT_NOT_FOUND               | 日報が見つからない                                 |
+| REPORT_ALREADY_EXISTS          | 日報が既に存在（同日の日報重複）                   |
+| CANNOT_DELETE_SUBMITTED_REPORT | 提出済み日報は削除不可                             |
+| CUSTOMER_NOT_FOUND             | 顧客が見つからない                                 |
+| CUSTOMER_HAS_VISITS            | 顧客に訪問記録が存在（削除不可）                   |
+| EMPLOYEE_NOT_FOUND             | 社員が見つからない                                 |
+| EMPLOYEE_HAS_REPORTS           | 社員に日報が存在（削除不可）                       |
+| EMAIL_ALREADY_EXISTS           | メールアドレスが既に登録済み                       |
+| INVALID_MANAGER                | 不正な上長指定（自己参照または循環参照）           |
+| VALIDATION_ERROR               | バリデーションエラー                               |
+| INTERNAL_SERVER_ERROR          | サーバー内部エラー                                 |
 
 ---
 

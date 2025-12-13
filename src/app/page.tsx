@@ -5,9 +5,7 @@ export default function Home() {
         <h1 className="text-4xl font-bold text-center mb-8">
           営業日報システム
         </h1>
-        <p className="text-center text-lg">
-          Sales Daily Report System
-        </p>
+        <p className="text-center text-lg">Sales Daily Report System</p>
         <div className="mt-8 grid text-center lg:grid-cols-3 lg:text-left gap-4">
           <div className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100">
             <h2 className="mb-3 text-2xl font-semibold">

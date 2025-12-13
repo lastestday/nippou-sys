@@ -9,6 +9,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Core Requirements
 
 ### Key Features
+
 1. **Daily Report Submission**: Sales reps create one daily report per day containing:
    - Multiple visit records (customer visits with details)
    - Problem: Current issues/concerns
@@ -26,17 +27,20 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
    - Employee Master (営業マスタ) with manager hierarchy
 
 ### User Roles
+
 - **Sales Representative**: Create reports and visit records
 - **Manager**: View reports and add comments
 
 ## Requirements Definition
 
 ### 1. System Overview
+
 A web-based system for sales representatives to submit daily reports and managers to review and comment on them.
 
 ### 2. Main Features
 
 #### 2.1 Daily Report Management
+
 - **Daily Report Creation**
   - Sales representatives create one report per day
   - Each report includes: date, creator (sales rep)
@@ -44,6 +48,7 @@ A web-based system for sales representatives to submit daily reports and manager
   - Plan (tomorrow's action items)
 
 #### 2.2 Visit Records
+
 - **Visit Information Registration**
   - Multiple visit records can be added to one daily report
   - Each visit record includes:
@@ -52,11 +57,13 @@ A web-based system for sales representatives to submit daily reports and manager
     - Visit time (optional)
 
 #### 2.3 Comment Feature
+
 - **Manager Comments**
   - Managers can add comments to Problem/Plan sections
   - Comment timestamp is recorded
 
 #### 2.4 Master Data Management
+
 - **Customer Master**
   - Manages customer ID, name, contact info, address, etc.
 
@@ -65,10 +72,12 @@ A web-based system for sales representatives to submit daily reports and manager
   - Includes manager information
 
 ### 3. User Roles
+
 - **Sales Representative**: Create daily reports, register visit records
 - **Manager**: View reports, add comments
 
 ### 4. Non-functional Requirements (Expected)
+
 - Web-based system
 - Authentication and authorization
 - Data backup
@@ -174,6 +183,7 @@ The system uses the following main entities (see ER diagram in requirements):
 - **REPORT_COMMENT**: Manager comments on reports (comment_type for Problem/Plan/General)
 
 Key relationships:
+
 - One employee creates many daily reports
 - One daily report contains many visit records
 - One daily report can have many comments
@@ -182,16 +192,19 @@ Key relationships:
 ## Architecture Considerations
 
 ### Data Model Notes
+
 - `DAILY_REPORT.report_date` + `employee_id` should be unique (one report per day per employee)
 - `VISIT_RECORD.display_order` maintains the sequence of visits within a report
 - `REPORT_COMMENT.comment_type` distinguishes between Problem/Plan/General comments
 - `EMPLOYEE.manager_id` enables the approval workflow hierarchy
 
 ### Status Management
+
 - Daily reports should track status: draft → submitted → reviewed
 - Consider soft deletes for audit trail
 
 ### Future Considerations
+
 - Authentication and authorization (role-based access)
 - Search and filtering by date range, employee, customer
 - Analytics: visit frequency, customer engagement metrics
@@ -203,16 +216,19 @@ Key relationships:
 ### Code Quality Tools
 
 **ESLint**: Code linting for TypeScript/JavaScript
+
 - Config: `.eslintrc.json`
 - Run: `npm run lint`
 - Auto-fix: `npm run lint:fix`
 
 **Prettier**: Code formatting
+
 - Config: `.prettierrc.json`
 - Run: `npm run format`
 - Check: `npm run format:check`
 
 **TypeScript**: Type checking
+
 - Config: `tsconfig.json`
 - Run: `npm run type-check`
 
@@ -250,16 +266,19 @@ npm start             # Start production server
 ### Testing Setup
 
 **Vitest**: Fast unit test framework
+
 - Config: `vitest.config.ts`
 - Setup: `vitest.setup.ts`
 - Coverage threshold: 80%
 
 **Testing Libraries**:
+
 - `@testing-library/react` - React component testing
 - `@testing-library/jest-dom` - Custom matchers
 - `@testing-library/user-event` - User interaction simulation
 
 **Test File Naming**:
+
 - `*.test.ts` or `*.test.tsx` - Unit tests
 - `*.spec.ts` or `*.spec.tsx` - Integration/E2E tests
 - Place tests in `__tests__/` directory or co-locate with source files
@@ -270,8 +289,8 @@ npm start             # Start production server
 - [API Specification](API_SPECIFICATION.md) - API仕様書
 - [Test Specification](TEST_SPECIFICATION.md) - テスト仕様書
 
-
 # 使用技術
+
 **言語:** TypeScript
 **フレームワーク** Next.js(App Router)
 **UIコンポーネント** shadcn/ui + Tailwind CSS
